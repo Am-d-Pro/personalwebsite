@@ -1,8 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
-    // Authentication & Session Management
+    // Authentication & Session Management (Secure Hashed Auth)
     // ==========================================================================
     const AUTH_KEY = 'portfolio_user_session';
+    const HASH_KEY = 'portfolio_custom_pass_hash';
+    // Default SHA-256 hash for password "password" (can be updated via localStorage)
+    const DEFAULT_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8';
+
+    async function hashPassword(str) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(str);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
 
     const Auth = {
         getUser() {
@@ -16,13 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
         isLoggedIn() {
             return !!this.getUser();
         },
-        login(username, password) {
+        async login(username, password) {
             if (!username.trim()) {
                 return { success: false, message: 'Please enter your username.' };
             }
             if (!password.trim()) {
                 return { success: false, message: 'Please enter your password.' };
             }
+
+            const inputHash = await hashPassword(password.trim());
+            const targetHash = localStorage.getItem(HASH_KEY) || DEFAULT_HASH;
+
+            if (inputHash !== targetHash) {
+                return { success: false, message: 'Invalid username or password.' };
+            }
+
             const userSession = {
                 username: username.trim(),
                 loginTime: new Date().toISOString()
@@ -32,6 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         logout() {
             localStorage.removeItem(AUTH_KEY);
+        },
+        async setCustomPassword(newPassword) {
+            const newHash = await hashPassword(newPassword);
+            localStorage.setItem(HASH_KEY, newHash);
         }
     };
 
@@ -107,14 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const usernameInput = document.getElementById('auth-username');
             const passwordInput = document.getElementById('auth-password');
             const username = usernameInput ? usernameInput.value : '';
             const password = passwordInput ? passwordInput.value : '';
 
-            const result = Auth.login(username, password);
+            const result = await Auth.login(username, password);
             if (result.success) {
                 if (loginForm) loginForm.reset();
                 closeModal();
