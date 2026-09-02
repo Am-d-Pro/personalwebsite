@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================================
     const AUTH_KEY = 'portfolio_user_session';
     const HASH_KEY = 'portfolio_custom_pass_hash';
-    // Default SHA-256 hash for password "password" (can be updated via localStorage)
-    const DEFAULT_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8';
+    // Default SHA-256 hash for the admin password (stored securely as hash, raw password is never kept in plain text)
+    const DEFAULT_HASH = '93289e50a9ad8cff63ee17ed393df2e0c9cc417b8417298f9168d3bf69e28f00';
 
     async function hashPassword(str) {
         const encoder = new TextEncoder();
