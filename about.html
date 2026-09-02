@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | About</title>
+    <meta name="description" content="About me, my skills, and experience.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Pramod Karthikeyan<span class="gradient-text">.</span></a>
+
+            <button class="menu-btn" aria-label="Toggle menu">☰</button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li id="nav-auth-item"></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section class="section">
+            <div class="container">
+                <h1 class="title-lg reveal">About <span class="gradient-text">Me</span>.</h1>
+
+                <div class="about-grid mt-4">
+                    <div class="about-image-wrapper reveal delay-1">
+                        <!-- High quality professional portrait placeholder -->
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1500&auto=format&fit=crop"
+                            alt="Profile picture" class="hero-image-wrapper hero-image"
+                            style="box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                    </div>
+
+                    <div class="about-text reveal delay-2">
+                        <p>
+                            I’m a software engineer by training, a product manager and coach by profession, and a
+                            finance enthusiast who probably spends the most time in that world.
+                        </p>
+
+
+                        <div class="skills-container reveal delay-3">
+                            <h3 class="skills-title">Core Competencies</h3>
+                            <div class="skills-list">
+                                <span class="skill-tag">Product Management</span>
+                                <span class="skill-tag">Coaching</span>
+                                <span class="skill-tag">Finance</span>
+                                <span class="skill-tag">Stock Market</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal-card">
+            <button id="modal-close-btn" class="modal-close" aria-label="Close modal">✕</button>
+            <div class="modal-header">
+                <h2 id="modal-title">Welcome <span class="gradient-text">Back</span></h2>
+                <p>Log in to view exclusive projects and portfolio details.</p>
+            </div>
+            <form id="login-form" class="auth-form">
+                <div id="auth-error" class="auth-error"></div>
+                <div class="form-group">
+                    <label for="auth-username">Username</label>
+                    <input type="text" id="auth-username" class="form-input" placeholder="e.g. admin" required
+                        autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="auth-password">Password</label>
+                    <input type="password" id="auth-password" class="form-input" placeholder="••••••••" required
+                        autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Sign In</button>
+            </form>
+            <div class="demo-hint">
+                💡 Demo Credentials: Username <code>admin</code> | Password <code>password</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interaction Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
